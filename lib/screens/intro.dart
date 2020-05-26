@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oole_app/utils/app-routes.dart';
 
 class Intro extends StatefulWidget {
   @override
@@ -56,7 +57,7 @@ class _IntroState extends State<Intro> {
                         fontSize: 20.0,
                       )),
                   onPressed: () {
-                    
+                    Navigator.of(context).popAndPushNamed(AppRoutes.LOGIN);
                   },
                 ),
               ),
