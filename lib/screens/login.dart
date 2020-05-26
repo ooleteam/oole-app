@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oole_app/utils/app-routes.dart';
 
 
 class Login extends StatefulWidget {
@@ -121,7 +122,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       onPressed: () {
-                        
+                        Navigator.of(context).pushReplacementNamed(AppRoutes.REGISTER);
                       },
                     ),
                   ),
