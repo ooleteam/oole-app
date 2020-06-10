@@ -37,7 +37,7 @@ class _PerfilInfoHeaderState extends State<PerfilInfoHeader> {
           if (_expanded)
             Container(
               width: double.infinity,
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.symmetric(horizontal: 10),
               color: Colors.grey[100],
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

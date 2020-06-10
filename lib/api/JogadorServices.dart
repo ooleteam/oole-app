@@ -8,12 +8,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class JogadorService with ChangeNotifier{
   final String url = '${Constants.BASE_API_URL}/jogadores';
-
-  Jogador _user = Jogador();
+  Jogador _user;
 
   Jogador get user => _user;
 
   Future<void> loadCurrentUser() async{
+    _user = Jogador();
+    
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     int id = prefs.getInt('userID');
     String token = prefs.getString("token");

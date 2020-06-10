@@ -10,7 +10,7 @@ class PerfilHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
       width: double.infinity,
       child: Column(
         children: <Widget>[
@@ -23,7 +23,6 @@ class PerfilHeader extends StatelessWidget {
             _user.posicao,
           ),
           PerfilInfoHeader(_user),
-          Divider(color: Colors.green[400],),
         ],
       ),
     );

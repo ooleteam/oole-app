@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oole_app/components/AppBar.dart';
 import 'package:oole_app/models/Video.dart';
 import 'package:video_player/video_player.dart';
 

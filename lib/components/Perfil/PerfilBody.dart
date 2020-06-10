@@ -19,7 +19,6 @@ class _PerfilBodyState extends State<PerfilBody> {
     // );
     return Expanded(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
         width: double.infinity,
         child: GridView.builder(
           itemCount: widget.videos.length,

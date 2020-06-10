@@ -4,4 +4,5 @@ class AppRoutes {
   static String REGISTER = '/register';
   static String TABS = '/tabs';
   static String VIDEO = '/video';
+  static String EDITAR_PERFIL = '/editar-perfil';
 }

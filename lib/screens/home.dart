@@ -1,46 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:oole_app/api/JogadorServices.dart';
+import 'package:oole_app/models/Jogador.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class Home extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  bool isLoading = true;
-  String _tipo;
-  var _user;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadApp();
-  }
-
-  _loadApp() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _tipo = prefs.getString("userType");
-
-    if (_tipo == "Jogador") {
-      await Provider.of<JogadorService>(context, listen: false)
-          .loadCurrentUser();
-      setState(() {
-        _user = Provider.of<JogadorService>(context, listen: false).user;
-        isLoading = false;
-      });
-    }
-  }
+class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? Center(
-            child: CircularProgressIndicator(),
-          )
+    final Jogador user = Provider.of<JogadorService>(context).user;
+    return user == null
+        ? Center(child: CircularProgressIndicator())
         : Center(
-            child: Text(_user.nome),
+            child: Text(user.nome),
           );
   }
 }

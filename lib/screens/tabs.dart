@@ -4,8 +4,9 @@ import 'package:oole_app/screens/add_video.dart';
 import 'package:oole_app/screens/home.dart';
 import 'package:oole_app/screens/perfil.dart';
 import 'package:oole_app/screens/search.dart';
+import 'package:oole_app/shared/AppBar.dart';
+import 'package:oole_app/shared/CustomDrawer.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -42,6 +43,8 @@ class _TabsScreenState extends State<TabsScreen> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
+          appBar: CustomBar(_screens[_selectedScreenIndex]['title']),
+          drawer: CustomDrawer(),
           body: _screens[_selectedScreenIndex]['screen'],
           bottomNavigationBar: BottomNavigationBar(
             onTap: _selectScreen,
