@@ -4,8 +4,10 @@ import 'package:oole_app/screens/add_video.dart';
 import 'package:oole_app/screens/home.dart';
 import 'package:oole_app/screens/perfil.dart';
 import 'package:oole_app/screens/search.dart';
+import 'package:oole_app/screens/search_user_perfil.dart';
 import 'package:oole_app/shared/AppBar.dart';
 import 'package:oole_app/shared/CustomDrawer.dart';
+import 'package:oole_app/utils/app-routes.dart';
 import 'package:provider/provider.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -64,6 +66,9 @@ class _TabsScreenState extends State<TabsScreen> {
             ],
           ),
         ),
+        routes: {
+          AppRoutes.PERFIL: (ctx) => SearchUserPerfil()
+        },
       ),
     );
   }

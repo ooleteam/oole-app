@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oole_app/screens/intro.dart';
 import 'package:oole_app/screens/login.dart';
+import 'package:oole_app/screens/perfil.dart';
 import 'package:oole_app/screens/register.dart';
 import 'package:oole_app/screens/tabs.dart';
 import 'package:oole_app/utils/app-routes.dart';
@@ -25,7 +26,7 @@ class Index extends StatelessWidget{
         AppRoutes.INTRO: (ctx) => Intro(),
         AppRoutes.LOGIN: (ctx) => Login(),
         AppRoutes.REGISTER: (ctx) => Register(),
-        AppRoutes.TABS: (ctx) => TabsScreen()
+        AppRoutes.TABS: (ctx) => TabsScreen(),
       },
     );
   }

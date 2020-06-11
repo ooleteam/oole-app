@@ -7,4 +7,9 @@ class Formaters {
     telefoneFormatado.insert(10, '-');
     return telefoneFormatado.join();
   }
+
+  static String nomeFormmater(String nome){
+    var nomeSeparado = nome.split(' ');
+    return "${nomeSeparado[0]} ${nomeSeparado[1]}";
+  }
 }

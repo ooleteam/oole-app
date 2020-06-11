@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oole_app/utils/constants.dart';
 
 class PerfilMainHeader extends StatelessWidget {
   final String _url;
@@ -29,7 +30,7 @@ class PerfilMainHeader extends StatelessWidget {
                   image: new DecorationImage(
                     fit: BoxFit.fill,
                     image:
-                        _url != null ? NetworkImage(_url) : Icon(Icons.person),
+                        _url != null ? NetworkImage(_url) : NetworkImage(Constants.DEFAULT_USER_FOTO_PERFIL),
                   ),
                 ),
               ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:oole_app/api/JogadorServices.dart';
+import 'package:oole_app/models/Jogador.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomBar extends StatefulWidget implements PreferredSizeWidget{
+class CustomBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
-
 
   CustomBar(this.title);
 
@@ -17,11 +17,18 @@ class CustomBar extends StatefulWidget implements PreferredSizeWidget{
 }
 
 class _CustomBarState extends State<CustomBar> {
+  final TextEditingController _loginController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _loadApp();
+  }
+
+  @override
+  void dispose() {
+    _loginController.dispose();
+    super.dispose();
   }
 
   _loadApp() async {
@@ -34,8 +41,32 @@ class _CustomBarState extends State<CustomBar> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _switchAppBar(BuildContext context) {
+    if (widget.title == 'Procurar') {
+      return AppBar(
+        title: TextFormField(
+          controller: _loginController,
+          cursorColor: Colors.white,
+          style: TextStyle(color: Colors.white),
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: "Procurar...",
+            hintStyle: TextStyle(color: Colors.white54),
+          ),
+        ),
+        backgroundColor: Colors.green,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () async {
+              await Provider.of<JogadorService>(context, listen: false)
+          .searchJogadores(_loginController.text);
+            },
+          ),
+        ],
+      );
+    }
+
     return AppBar(
       title: Text(widget.title),
       backgroundColor: Colors.green,
@@ -50,5 +81,10 @@ class _CustomBarState extends State<CustomBar> {
         ),
       ],
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _switchAppBar(context);
   }
 }

@@ -6,9 +6,14 @@ import 'package:oole_app/models/Jogador.dart';
 import 'package:provider/provider.dart';
 
 class Perfil extends StatelessWidget {
+  final Jogador user;
+
+  Perfil({this.user});
+
   @override
   Widget build(BuildContext context) {
-    final Jogador user = Provider.of<JogadorService>(context).user;
+    final Jogador user =  
+        this.user != null ?  this.user : Provider.of<JogadorService>(context).user;
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
