@@ -69,7 +69,7 @@ class _VideoShowState extends State<VideoShow> {
                         Row(
                           children: <Widget>[
                             Container(
-                              child: Text(widget._video.totalLike.toString()),
+                              child: Text(widget._video.totalLikes.toString()),
                             ),
                             IconButton(
                               icon: Icon(
@@ -84,7 +84,7 @@ class _VideoShowState extends State<VideoShow> {
                           children: <Widget>[
                             Container(
                               child:
-                                  Text(widget._video.totaldislike.toString()),
+                                  Text(widget._video.totalDislikes.toString()),
                             ),
                             IconButton(
                               icon: Icon(

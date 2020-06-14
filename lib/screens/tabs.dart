@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oole_app/api/JogadorServices.dart';
+import 'package:oole_app/api/VideosService.dart';
 import 'package:oole_app/screens/add_video.dart';
 import 'package:oole_app/screens/home.dart';
 import 'package:oole_app/screens/perfil.dart';
@@ -41,6 +42,7 @@ class _TabsScreenState extends State<TabsScreen> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => JogadorService()),
+        ChangeNotifierProvider(create: (_) => VideoService()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

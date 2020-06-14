@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:oole_app/api/JogadorServices.dart';
+import 'package:oole_app/api/VideosService.dart';
 import 'package:oole_app/components/Perfil/PerfilBody.dart';
 import 'package:oole_app/components/Perfil/PerfilHeader.dart';
 import 'package:oole_app/models/Jogador.dart';
+import 'package:oole_app/models/Video.dart';
 import 'package:provider/provider.dart';
 
 class Perfil extends StatelessWidget {
@@ -12,8 +14,10 @@ class Perfil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Jogador user =  
-        this.user != null ?  this.user : Provider.of<JogadorService>(context).user;
+    final Jogador user = this.user != null
+        ? this.user
+        : Provider.of<JogadorService>(context, listen: false).user;
+    final Future<List<Video>> videos = Provider.of<VideoService>(context, listen: false).videosByJogador(user.id);
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -27,7 +31,10 @@ class Perfil extends StatelessWidget {
               color: Colors.green[400],
             ),
           ),
-          PerfilBody(user.videos),
+          FutureBuilder<List<Video>>(
+            future: videos,
+            builder: (ctx, snapshot) => PerfilBody(snapshot.data),
+          ),
         ],
       ),
     );

@@ -114,9 +114,6 @@ class Jogador {
     data['cidade'] = this.cidade;
     data['estado'] = this.estado;
     data['endereco'] = this.endereco;
-    if (this.videos != null) {
-      data['videos'] = this.videos.map((v) => v.toJson()).toList();
-    }
     if (this.observadores != null) {
       data['observadores'] = this.observadores.map((v) => v.toJson()).toList();
     }

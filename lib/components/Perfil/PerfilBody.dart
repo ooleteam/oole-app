@@ -14,14 +14,11 @@ class PerfilBody extends StatefulWidget {
 class _PerfilBodyState extends State<PerfilBody> {
   @override
   Widget build(BuildContext context) {
-    // return Center(
-    //   child: Text(widget.videos[0].title),
-    // );
     return Expanded(
       child: Container(
         width: double.infinity,
         child: GridView.builder(
-          itemCount: widget.videos.length,
+          itemCount: widget.videos != null? widget.videos.length : 0,
           itemBuilder: (BuildContext context, int index) {
             return VideoPlayerScreen(widget.videos[index]);
           },
