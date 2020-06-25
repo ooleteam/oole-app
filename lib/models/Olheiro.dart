@@ -1,6 +1,6 @@
 import 'package:oole_app/models/Jogador.dart';
 
-class Olheiro{
+class Olheiro {
   int id;
   String nome;
   String dataNascimento;
@@ -63,13 +63,13 @@ class Olheiro{
       });
     }
     if (json['seguidores'] != null) {
-      seguidores = new List<Null>();
+      seguidores = new List<Olheiro>();
       json['seguidores'].forEach((v) {
         seguidores.add(new Olheiro.fromJson(v));
       });
     }
     if (json['seguindo'] != null) {
-      seguindo = new List<Null>();
+      seguindo = new List<Olheiro>();
       json['seguindo'].forEach((v) {
         seguindo.add(new Olheiro.fromJson(v));
       });

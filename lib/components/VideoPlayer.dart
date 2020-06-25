@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oole_app/models/Video.dart';
-import 'package:oole_app/screens/video_show.dart';
+import 'package:oole_app/screens/Shared/video_show.dart';
+import 'package:oole_app/shared/LoadingCircle.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
@@ -59,7 +60,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           } else {
             // If the VideoPlayerController is still initializing, show a
             // loading spinner.
-            return Center(child: CircularProgressIndicator());
+            return Center(child: LoadingCircle());
           }
         },
       ),

@@ -14,7 +14,8 @@ class VideoService with ChangeNotifier {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("token");
 
-    final res = await http.get('$url/by-player/$id', headers: {'Authorization': token});
+    final res =
+        await http.get('$url/by-player/$id', headers: {'Authorization': token});
 
     List<Video> _videoList = [];
     if (res.statusCode == 200) {

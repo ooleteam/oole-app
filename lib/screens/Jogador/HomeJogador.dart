@@ -7,17 +7,17 @@ import 'package:oole_app/providers/UserProvider.dart';
 import 'package:oole_app/shared/LoadingCircle.dart';
 import 'package:provider/provider.dart';
 
-class Home extends StatefulWidget {
+class HomeJogador extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _HomeJogadorState createState() => _HomeJogadorState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeJogadorState extends State<HomeJogador> {
   List<Video> feedVideos;
 
   @override
   void initState() {
-    feedVideos = null;
+    feedVideos = Provider.of<FeedProvider>(context, listen: false).videoList;
     super.initState();
   }
 
@@ -30,16 +30,16 @@ class _HomeState extends State<Home> {
   Future<void> _loadFeed() async {
     final user = Provider.of<UserProvider>(context, listen: false).user;
     final provider = Provider.of<FeedProvider>(context, listen: false);
-    await provider.loadFeed(user.id).then((value) {
-      setState(() {
-        feedVideos = provider.videoList;
-      });
-    });
+    // await provider.loadFeed(user.id).then((value) {
+    //   setState(() {
+    //     feedVideos = provider.videoList;
+    //   });
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
-    feedVideos = Provider.of<FeedProvider>(context).videoList;
+    // feedVideos = Provider.of<FeedProvider>(context).videoList;
     return RefreshIndicator(
       onRefresh: () => _loadFeed(),
       child: feedVideos == null

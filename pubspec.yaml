@@ -17,6 +17,9 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  video_box:
+  image_picker: ^0.6.1+4
+  path_provider: 1.6.10
   video_player:
   intl: ^0.16.1
   provider: ^4.0.5

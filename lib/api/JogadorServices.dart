@@ -9,12 +9,44 @@ import 'package:shared_preferences/shared_preferences.dart';
 class JogadorService with ChangeNotifier {
   final String url = '${Constants.BASE_API_URL}/jogadores';
   Jogador _user;
-
+  Jogador _perfilOwnerUser;
+  bool _isFollowing;
   List<Jogador> _searchList = [];
 
   Jogador get user => _user;
-
+  Jogador get perfilOwnerUser => _perfilOwnerUser;
+  bool get isFollowing => _isFollowing;
   List<Jogador> get searchList => _searchList;
+
+  Future<void> follow(int seguidoId) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("token");
+    int id = prefs.getInt('userID');
+
+    await http.put('$url/follow?userid=$id&seguidoid=$seguidoId', headers: {
+      'Authorization': token,
+    }).then((value) => print(value.statusCode));
+
+    _isFollowing = true;
+    await loadCurrentUser();
+    await loadPerfilOwnerUser(id);
+    notifyListeners();
+  }
+
+  Future<void> unfollow(int seguidoId) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("token");
+    int id = prefs.getInt('userID');
+
+    await http.put('$url/unfollow?userid=$id&seguidoid=$seguidoId', headers: {
+      'Authorization': token,
+    }).then((value) => print(value.statusCode));
+
+    _isFollowing = false;
+    await loadCurrentUser();
+    await loadPerfilOwnerUser(id);
+    notifyListeners();
+  }
 
   Future<void> loadCurrentUser() async {
     _user = Jogador();
@@ -54,20 +86,29 @@ class JogadorService with ChangeNotifier {
     }
   }
 
-  Future<Jogador> searchJogadorById(int id) async {
+  Future<void> loadPerfilOwnerUser(int id) async {
+    // _perfilOwnerUser = Jogador();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("token");
 
     final res = await http.get('$url/$id', headers: {'Authorization': token});
 
-    Jogador jogador = Jogador();
+    _perfilOwnerUser = Jogador();
 
     if (res.statusCode == 200) {
-      jogador = Jogador.fromJson(json.decode(res.body));
-      notifyListeners();
-      return jogador;
-    }
+      _perfilOwnerUser = Jogador.fromJson(json.decode(res.body));
+      if (user.seguindo != null) {
+        user.seguindo.forEach((element) {
+          if (element.id == _perfilOwnerUser.id) {
+            _isFollowing = true;
 
-    return null;
+            notifyListeners();
+          }
+        });
+      } else {
+        _isFollowing = false;
+        notifyListeners();
+      }
+    }
   }
 }

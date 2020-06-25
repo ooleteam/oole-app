@@ -20,16 +20,16 @@ class _IntroState extends State<Intro> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               Container(
-                width: MediaQuery.of(context).size.width/3,
-                height: MediaQuery.of(context).size.height/4,
+                width: MediaQuery.of(context).size.width / 3,
+                height: MediaQuery.of(context).size.height / 4,
                 child: Image.asset(
                   "images/oole-logo.png",
                   fit: BoxFit.fitWidth,
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width/2,
-                height: MediaQuery.of(context).size.height/4,
+                width: MediaQuery.of(context).size.width / 2,
+                height: MediaQuery.of(context).size.height / 4,
                 child: Image.asset(
                   "images/inicio-app.png",
                   fit: BoxFit.fitWidth,
@@ -41,15 +41,12 @@ class _IntroState extends State<Intro> {
                       "jogadas na melhor pataforma para\n" +
                       "jogadores de futebol.",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white, 
-                    fontSize: 16.0 
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 16.0),
                 ),
               ),
               Container(
-                height: (MediaQuery.of(context).size.height/100) * 8,
-                width: (MediaQuery.of(context).size.width/100) * 85,
+                height: (MediaQuery.of(context).size.height / 100) * 8,
+                width: (MediaQuery.of(context).size.width / 100) * 85,
                 child: RaisedButton(
                   child: Text("Começar a usar!",
                       style: TextStyle(
@@ -59,21 +56,6 @@ class _IntroState extends State<Intro> {
                   onPressed: () {
                     Navigator.of(context).popAndPushNamed(AppRoutes.LOGIN);
                   },
-                ),
-              ),
-              Container(
-                height: (MediaQuery.of(context).size.height/100) * 8,
-                width: (MediaQuery.of(context).size.width/100) * 85,
-                margin: EdgeInsets.only(bottom: (MediaQuery.of(context).size.width/100) * 5),
-                child: RaisedButton(
-                  child: Text(
-                    "O que é?",
-                    style: TextStyle(
-                      color: Color(0xFF01E271), 
-                      fontSize: 20.0
-                    ),
-                  ),
-                  onPressed: () {},
                 ),
               )
             ],

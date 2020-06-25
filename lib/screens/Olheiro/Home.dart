@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:oole_app/api/VideosService.dart';
 import 'package:oole_app/components/Home/FeedItem.dart';
 import 'package:oole_app/models/Video.dart';
 import 'package:oole_app/providers/FeedProvider.dart';
@@ -17,7 +16,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    feedVideos = null;
+    feedVideos = Provider.of<FeedProvider>(context, listen: false).videoList;
     super.initState();
   }
 
@@ -29,6 +28,7 @@ class _HomeState extends State<Home> {
 
   Future<void> _loadFeed() async {
     final user = Provider.of<UserProvider>(context, listen: false).user;
+    await Provider.of<FeedProvider>(context, listen: false).loadFeed(user.id);
     final provider = Provider.of<FeedProvider>(context, listen: false);
     await provider.loadFeed(user.id).then((value) {
       setState(() {
@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    feedVideos = Provider.of<FeedProvider>(context).videoList;
+    // print(feedVideos);
     return RefreshIndicator(
       onRefresh: () => _loadFeed(),
       child: feedVideos == null

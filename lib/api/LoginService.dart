@@ -13,26 +13,23 @@ class LoginService {
 
   Future<int> logIn(Credential credencial) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    
+
     final res = await http.post(
       url,
-      body: json.encode({
-        'email': credencial.email,
-        'senha': credencial.senha
-      }),
+      body: json.encode({'email': credencial.email, 'senha': credencial.senha}),
     );
 
-    if(res.statusCode == 200){
+    if (res.statusCode == 200) {
       var body = json.decode(res.body);
-      await prefs.setInt("userID",body["id"]);
-      await prefs.setString("userType",body["tipo"]);
+      await prefs.setInt("userID", body["id"]);
+      await prefs.setString("userType", body["tipo"]);
       await prefs.setString("token", res.headers['authorization']);
     }
 
     return res.statusCode;
   }
 
-  logOut() async {
+  static logOut() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove("userID");
     await prefs.remove("userType");

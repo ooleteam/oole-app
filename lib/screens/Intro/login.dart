@@ -16,7 +16,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(   
+    return Scaffold(
       backgroundColor: Color(0xFF008140),
       body: _isloading
           ? Center(child: CircularProgressIndicator())
@@ -130,9 +130,17 @@ class _LoginState extends State<Login> {
                                 _isloading = false;
                               });
                               if (code == 200) {
-                                Navigator.pushReplacementNamed(context, AppRoutes.TABS);
+                                Navigator.pushReplacementNamed(
+                                    context, AppRoutes.TABS);
                               } else if (code >= 400 && code < 500) {
-                                print('ERROOOOOOOOO');
+                                await showDialog<Null>(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                    title: Text("Ocorreu um erro durante!"),
+                                    content: Text(
+                                        "Por favor, verifique se o email ou a senha estão escritos corretamente"),
+                                  ),
+                                );
                               }
                             },
                           ),
@@ -160,7 +168,7 @@ class _LoginState extends State<Login> {
                             ),
                             onPressed: () {
                               Navigator.of(context)
-                                  .pushReplacementNamed(AppRoutes.REGISTER);
+                                  .pushNamed(AppRoutes.REGISTER);
                             },
                           ),
                         ),

@@ -7,10 +7,8 @@ class Video {
   String descricao;
   String url;
   String dataUpload;
-  List<Jogador> jogadorLike;
-  List<Jogador> jogadorDislike;
-  List<Olheiro> olheiroLike;
-  List<Olheiro> olheiroDislike;
+  List<Olheiro> like;
+  Jogador jogador;
   int totalLikes;
   int totalDislikes;
 
@@ -20,10 +18,8 @@ class Video {
       this.descricao,
       this.url,
       this.dataUpload,
-      this.jogadorLike,
-      this.jogadorDislike,
-      this.olheiroLike,
-      this.olheiroDislike,
+      this.like,
+      this.jogador,
       this.totalLikes,
       this.totalDislikes});
 
@@ -33,32 +29,13 @@ class Video {
     descricao = json['descricao'];
     url = json['url'];
     dataUpload = json['dataUpload'];
-    if (json['jogadorLike'] != null) {
-      jogadorLike = new List<Jogador>();
-      json['jogadorLike'].forEach((v) {
-        jogadorLike.add(new Jogador.fromJson(v));
+    if (json['likes'] != null) {
+      like = new List<Olheiro>();
+      json['likes'].forEach((v) {
+        like.add(new Olheiro.fromJson(v));
       });
     }
-    if (json['jogadorDislike'] != null) {
-      jogadorDislike = new List<Jogador>();
-      json['jogadorDislike'].forEach((v) {
-        jogadorDislike.add(new Jogador.fromJson(v));
-      });
-    }
-    if (json['olheiroLike'] != null) {
-      olheiroLike = new List<Olheiro>();
-      json['olheiroLike'].forEach((v) {
-        olheiroLike.add(new Olheiro.fromJson(v));
-      });
-    }
-    if (json['olheiroDislike'] != null) {
-      olheiroDislike = new List<Olheiro>();
-      json['olheiroDislike'].forEach((v) {
-        olheiroDislike.add(new Olheiro.fromJson(v));
-      });
-    }
-    totalLikes = json['totalLikes'];
-    totalDislikes = json['totalDislikes'];
+    jogador = new Jogador.fromJson(json['jogador']);
   }
 
   Map<String, dynamic> toJson() {
@@ -68,22 +45,10 @@ class Video {
     data['descricao'] = this.descricao;
     data['url'] = this.url;
     data['dataUpload'] = this.dataUpload;
-    if (this.jogadorLike != null) {
-      data['jogadorLike'] = this.jogadorLike.map((v) => v.toJson()).toList();
+    if (this.like != null) {
+      data['likes'] = this.like.map((v) => v.toJson()).toList();
     }
-    if (this.jogadorDislike != null) {
-      data['jogadorDislike'] =
-          this.jogadorDislike.map((v) => v.toJson()).toList();
-    }
-    if (this.olheiroLike != null) {
-      data['olheiroLike'] = this.olheiroLike.map((v) => v.toJson()).toList();
-    }
-    if (this.olheiroDislike != null) {
-      data['olheiroDislike'] =
-          this.olheiroDislike.map((v) => v.toJson()).toList();
-    }
-    data['totalLikes'] = this.totalLikes;
-    data['totalDislikes'] = this.totalDislikes;
+    data['jogador'] = this.jogador.toJson();
     return data;
   }
 }

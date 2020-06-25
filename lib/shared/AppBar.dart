@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:oole_app/api/JogadorServices.dart';
+import 'package:oole_app/api/VideosService.dart';
 import 'package:oole_app/models/Jogador.dart';
+import 'package:oole_app/providers/FeedProvider.dart';
+import 'package:oole_app/providers/JogadorProvider.dart';
+import 'package:oole_app/providers/OlheiroProvider.dart';
+import 'package:oole_app/providers/UserProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,12 +37,15 @@ class _CustomBarState extends State<CustomBar> {
   }
 
   _loadApp() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String _tipo = prefs.getString("userType");
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    await userProvider.loadUser();
+    await Provider.of<FeedProvider>(context).loadFeed(userProvider.user.id);
+    await Provider.of<JogadorProvider>(context, listen: false)
+        .searchJogadores('');
 
-    if (_tipo == "Jogador") {
-      await Provider.of<JogadorService>(context, listen: false)
-          .loadCurrentUser();
+    if (userProvider.userType == "Olheiro") {
+      await Provider.of<OlheiroProvider>(context, listen: false)
+          .searchOlheiros('');
     }
   }
 
@@ -53,14 +61,22 @@ class _CustomBarState extends State<CustomBar> {
             hintText: "Procurar...",
             hintStyle: TextStyle(color: Colors.white54),
           ),
+          onChanged: (value) async {
+            await Provider.of<JogadorProvider>(context, listen: false)
+                .searchJogadores(_loginController.text);
+            await Provider.of<OlheiroProvider>(context, listen: false)
+                .searchOlheiros(_loginController.text);
+          },
         ),
         backgroundColor: Colors.green,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () async {
-              await Provider.of<JogadorService>(context, listen: false)
-          .searchJogadores(_loginController.text);
+              await Provider.of<JogadorProvider>(context, listen: false)
+                  .searchJogadores(_loginController.text);
+              await Provider.of<OlheiroProvider>(context, listen: false)
+                  .searchOlheiros(_loginController.text);
             },
           ),
         ],
@@ -70,16 +86,6 @@ class _CustomBarState extends State<CustomBar> {
     return AppBar(
       title: Text(widget.title),
       backgroundColor: Colors.green,
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.notifications),
-          onPressed: () {},
-        ),
-        IconButton(
-          icon: Icon(Icons.more_vert),
-          onPressed: () {},
-        ),
-      ],
     );
   }
 
